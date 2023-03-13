@@ -6,16 +6,20 @@
 }
 
 body {
+  margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
+  background-color: lightcoral;
 }
 
 .wrap {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  transform: translateY(125px);
 }
 
 .face {
@@ -26,6 +30,10 @@ body {
   position: relative;
   z-index: 100;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.05);
+
+  transform-origin: bottom center;
+  animation: face-shaking 3s linear infinite;
+  animation-direction: alternate;
 }
 
 .eyes {
@@ -126,18 +134,19 @@ body {
 
 .hat {
   width: 250px;
-  z-index: 200;
-  transform: translateY(80px);
   cursor: pointer;
+  position: absolute;
+  z-index: 200;
+  top: -160px;
 }
 
 .hat:active {
-  transform: rotate(30deg);
+  transform: rotate(100deg);
   transform-origin: right bottom;
   transition: all 1s;
 }
 
-.body {
+.body-container {
   width: 240px;
   height: 220px;
   border-radius: 120px 120px 80px 80px;
@@ -187,6 +196,26 @@ body {
   transform: rotate(-20deg);
 }
 
+.deco {
+  width: 400px;
+  height: 100px;
+  background-color: #80c9f1;
+  border-radius: 50%;
+  position: absolute;
+  z-index: -100;
+  bottom: 0px;
+  box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes face-shaking {
+  from {
+    transform: rotate(-10deg);
+  }
+  to {
+    transform: rotate(10deg);
+  }
+}
+
 @keyframes mouth-scale {
   from {
     transform: translate(50%, -50%) scale(1);
@@ -214,10 +243,16 @@ body {
   100% {
     transform: rotate(20deg);
   }
-  /* 75% {
-    transform: rotate(15deg);
+}
+
+@media (max-height: 700px) {
+  .wrap {
+    transform: scale(0.8) translateY(calc(125px * 0.8));
   }
-  100% {
-    transform: rotate(10deg); */
-  /* } */
+}
+
+@media (max-height: 600px) {
+  .wrap {
+    transform: scale(0.6) translateY(calc(125px * 0.6));
+  }
 }
